@@ -23,7 +23,6 @@
         <extension module="org.jboss.as.messaging"/>
         <extension module="org.jboss.as.naming"/>
         <extension module="org.jboss.as.osgi"/>
-        <extension module="org.jboss.as.pojo"/>
         <extension module="org.jboss.as.remoting"/>
         <extension module="org.jboss.as.sar"/>
         <extension module="org.jboss.as.security"/>
@@ -32,10 +31,19 @@
         <extension module="org.jboss.as.web"/>
         <extension module="org.jboss.as.webservices"/>
         <extension module="org.jboss.as.weld"/>
+        <extension module="org.immutant.xa"/>
+        <extension module="org.immutant.web"/>
+        <extension module="org.immutant.messaging"/>
+        <extension module="org.immutant.jobs"/>
+        <extension module="org.immutant.daemons"/>
+        <extension module="org.immutant.core"/>
+        <extension module="org.immutant.cache"/>
+        <extension module="org.projectodd.polyglot.hasingleton"/>
     </extensions>
     
     <system-properties>
        <property name="org.apache.coyote.http11.Http11Protocol.COMPRESSION" value="on"/>
+       <property name="org.apache.tomcat.util.http.ServerCookie.FWD_SLASH_IS_SEPARATOR" value="false"/>
     </system-properties>
 
     <management>
@@ -199,14 +207,14 @@
             <cache-container name="ejb" aliases="sfsb sfsb-cache" default-cache="repl">
                 <transport lock-timeout="60000"/>
                 <replicated-cache name="repl" mode="ASYNC" batching="true">
-                    <eviction strategy="LRU"/>
+                    <eviction strategy="LRU" max-entries="10000"/>
                     <file-store/>
                 </replicated-cache>
                 <!-- Clustered cache used internally by EJB subsytem for managing the client-mapping(s) of
                 the socketbinding referenced by the EJB remoting connector -->
                 <replicated-cache name="remote-connector-client-mappings" mode="SYNC" batching="true"/>
                 <distributed-cache name="dist" mode="ASYNC" batching="true">
-                    <eviction strategy="LRU"/>
+                    <eviction strategy="LRU" max-entries="10000"/>
                     <file-store/>
                 </distributed-cache>
             </cache-container>
@@ -436,7 +444,6 @@
                 <capability name="org.jboss.as.osgi.configadmin" startlevel="1"/>
             </capabilities>
         </subsystem>
-        <subsystem xmlns="urn:jboss:domain:pojo:1.0"/>
         <subsystem xmlns="urn:jboss:domain:remoting:1.1">
             <connector name="remoting-connector" socket-binding="remoting"/>
         </subsystem>
@@ -496,6 +503,14 @@
             </endpoint-config>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:weld:1.0"/>
+        <subsystem xmlns="urn:jboss:domain:immutant-xa:1.0"/>
+        <subsystem xmlns="urn:jboss:domain:immutant-web:1.0"/>
+        <subsystem xmlns="urn:jboss:domain:immutant-messaging:1.0"/>
+        <subsystem xmlns="urn:jboss:domain:immutant-jobs:1.0"/>
+        <subsystem xmlns="urn:jboss:domain:immutant-daemons:1.0"/>
+        <subsystem xmlns="urn:jboss:domain:immutant-core:1.0"/>
+        <subsystem xmlns="urn:jboss:domain:immutant-cache:1.0"/>
+        <subsystem xmlns="urn:jboss:domain:polyglot-hasingleton:1.0"/>
     </profile>
 
     <interfaces>
