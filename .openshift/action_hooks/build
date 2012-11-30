@@ -29,11 +29,5 @@ if [ ! -d immutant ]; then
     unzip -q immutant-dist-*.zip
     rm immutant-dist-*.zip
     ln -s immutant-* immutant
+    echo "Installed" immutant-*
 fi
-
-# Create deployment descriptor for the app
-DD=${OPENSHIFT_REPO_DIR}/deployments/${OPENSHIFT_APP_NAME}.clj
-if [ ! -f ${DD} ]; then
-    echo "{:root \"${OPENSHIFT_REPO_DIR}\" :context-path \"/\"}" > ${DD}
-fi
-> ${DD}.dodeploy
