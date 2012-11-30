@@ -1,10 +1,10 @@
 Immutant on OpenShift
 =========================
 
-This is a (hopefully) short-term solution for trying out your
-Leiningen-based Clojure applications running in Immutant on OpenShift.
-Longer term, we hope to create an Immutant cartridge that you can
-embed into your AS7/EAP6 OpenShift applications.
+Here is a quick way to try out your Leiningen-based Clojure
+application running in Immutant on OpenShift. Eventually, we hope to
+create an Immutant cartridge that you can embed into your AS7/EAP6
+OpenShift applications.
 
 By default, this quickstart will install the latest incremental
 version of Immutant. You can specify a different version by tweaking
@@ -39,17 +39,27 @@ Remove the sample app provided by the jbossas-7 cartridge
 
     rm -rf pom.xml src
 
-Create, copy or pull a Leiningen app in
+Create, copy or pull an existing Leiningen app in
 
-    lein new tmp
-    cp -R tmp/* .
-    rm -rf tmp
+    lein new yourapp
+    cp -R yourapp/* .
+    rm -rf yourapp
     
-Then push the repo upstream
+Then add, commit, and push your changes
 
+    git add -A .
+    git commit -m "My Changes"
     git push
 
-That's it, you can now checkout your application at:
+That's it! The first build will take a minute or two, even after the
+push completes, so be patient. You should ssh to your app and run
+`tail_all` so you'll have something to watch while your app deploys.
+
+Configure your REPL (see above), set up your ssh tunnel, and mount a
+Ring handler using `(immutant.web/start your-handler)`. Finally,
+access it at this link:
 
     http://yourapp-$namespace.rhcloud.com
 
+Drop in to the `#immutant` IRC channel on freenode.net if you have any
+questions.
