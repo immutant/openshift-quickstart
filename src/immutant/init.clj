@@ -1,9 +1,9 @@
 (ns immutant.init
-  (:require immutant.web))
+  (:require immutant.web)
+  (:use [ring.middleware.resource :only [wrap-resource]]
+        [ring.util.response :only [redirect]]))
 
 (defn handler [request]
-  {:status 200
-   :headers {"Content-Type" "text/html"}
-   :body "<h1>Hello from OpenShift!</h1>"})
+  (redirect "/index.html"))
 
-(immutant.web/start handler)
+(immutant.web/start (wrap-resource handler "public"))
