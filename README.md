@@ -37,13 +37,13 @@ Remove the sample app provided by the jbossas-7 cartridge
 
 Add this upstream repo
 
-    git remote add upstream -m master git://github.com/immutant/openshift-quickstart.git
-    git pull -s recursive -X theirs upstream master
+    git remote add quickstart -m master git://github.com/immutant/openshift-quickstart.git
+    git pull --no-commit -s recursive -X theirs quickstart master
 
 Then add, commit, and push your changes
 
     git add -A .
-    git commit -m "My Changes"
+    git commit -m "Add Immutant modules and setup Clojure project"
     git push
 
 That's it! The first build will take a minute or two, even after the
